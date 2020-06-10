@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red{
+            background: #ff1515;
+        }
+    </style>
+</head>
+<body>
+<div class="msg">
+<!--    v-bind 简写 ：-->
+
+
+    <img v-bind:src="imagUrl" alt="">
+
+    <button @click="toogle">toogle</button>
+    <h1 :class="{ red:isRed}">YYY</h1>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'.msg',
+        data:{
+            imagUrl:'https://cn.vuejs.org/images/logo.png',
+            clsName:'red',
+            isRed:true
+
+        },
+        methods:{
+            toogle(){
+                this.isRed=!this.isRed;
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+
+    <div v-text="msg"></div>
+    <div v-html="msg2"></div>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'.msg',
+        data:{
+            msg:'hello word!',
+            msg2:'<h1>hello word</h1>'
+        }
+    })
+</script>
+
+</html>
