@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+    <div v-show="isLogin">
+        show,改变了display属性
+    </div>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'.msg',
+        data:{
+            isLogin:true
+        }
+    })
+</script>
+
+</html>

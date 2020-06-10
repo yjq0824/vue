@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+    {{msg}}
+
+    <div v-if="isLogin">
+        already!
+    </div>
+    <div v-else>
+        please! v-else直接改变的是dom结构
+    </div>
+
+    <div v-if="str=='A'">A</div>
+    <div v-else-if="str=='B'">B</div>
+    <div v-else-if="str=='C'">C</div>
+    <div v-else>D</div>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'.msg',
+        data: {
+            msg:'hello word!',
+            isLogin: false,
+            str:'C'
+        }
+    })
+</script>
+
+</html>

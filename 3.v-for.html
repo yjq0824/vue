@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+    <ul>
+        <li v-for="(item,index) in arr">
+            {{item}}
+        </li>
+        <li v-for="(student,index) in stuSort">
+            学生：{{student.name}}: 年龄：{{student.age}}岁 {{index}}
+        </li>
+        <li v-for="(value,key) in dog">
+            {{value}} {{key}}
+        </li>
+    </ul>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'.msg',
+        data:{
+            arr:['html','css','js','vue'],
+            stuList:[
+                {
+                    name:'zs',
+                    age:'30'
+                },
+                {
+                    name:'ls',
+                    age:'20'
+                },
+                {
+                    name:'ww',
+                    age:'21'
+                }
+
+            ],
+            dog:{
+                name:'zs',
+                age:18
+            }
+        },
+        computed:{
+          stuSort(){
+              console.log(this);
+              return this.stuList.sort((a,b)=>{
+                  return a.age  - b.age;
+              });
+          }
+        }
+    });
+</script>
+
+</html>
