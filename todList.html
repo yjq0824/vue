@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todList</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .todList{
+            text-align: center;
+        }
+        .money{
+            font-weight:bold;
+        }
+        .red{
+            background: #ff3415;
+        }
+        .flag{
+            margin:30px 0;
+        }
+        .add-commodity{
+            margin:20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="todList">
+        <h1>todList</h1>
+        <hr>
+        <form class="form-inline" @submit.prevent>
+            <div class="form-group">
+
+                <input  v-model.trim="keyword" type="text" class="form-control"  placeholder="请输入商品名称">
+            </div>
+            <button @click="search" type="submit" class="btn btn-info glyphicon glyphicon-search">搜索</button>
+        </form>
+
+        <form class="form-inline add-commodity" @submit.prevent>
+            <div class="form-group">
+                <label for="commodityName">商品名称</label>
+                <input @click  v-model.trim="commodityName" type="text" class="form-control" id="commodityName" placeholder="请输入商品名称">
+            </div>
+            <div class="form-group">
+                <label for="commodityPrice">商品价格</label>
+                <input @click  v-model.number.trim="commodityPrice" type="number" class="form-control" id="commodityPrice" placeholder="请输入商品价格">
+            </div>
+            <button @click="add" type="submit" class="btn btn-info glyphicon glyphicon-plus">添加</button>
+        </form>
+
+        <table class="table table-bordered flag">
+            <thead>
+            <tr class="warning">
+                <td>选择</td>
+                <td>商品名</td>
+                <td>单价</td>
+                <td>操作</td>
+            </tr>
+
+            </thead>
+            <tbody>
+                    <tr @click="select(commodity)" v-for="(commodity,index) in commodityList" :class="commodity.isRed ? 'red':''">
+
+                        <td>
+                            <input @click.stop.trim  type="checkbox" v-model="checkedList" :value="index">
+                        </td>
+                        <td>{{commodity.commodityName}}</td>
+                        <td>{{commodity.commodityPrice}}</td>
+                        <td>
+                            <button  type="button" class="btn btn-warning glyphicon glyphicon-trash btn-md" @click.stop="del(index)"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        <button @click="delChecked" type="button" class="btn btn-danger glyphicon glyphicon-trash btn-xs">删除选中</button>
+                        </td>
+                        <td colspan="3" class="money">
+                            商品总价为：{{total}}元
+                        </td>
+                    </tr>
+            </tbody>
+
+        </table>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '.todList',
+            data: {
+                commodityList: [
+                    {
+                        commodityName: '裤子',
+                        commodityPrice: '188',
+                        isRed: false
+                    },
+                    {
+                        commodityName: '鞋子',
+                        commodityPrice: '99',
+                        isRed: false
+                    },
+                    {
+                        commodityName: '衣服',
+                        commodityPrice: '100',
+                        isRed: false
+                    },
+                    {
+                        commodityName: '帽子',
+                        commodityPrice: '150',
+                        isRed: false
+                    },
+                    {
+                        commodityName: '袜子',
+                        commodityPrice: '15',
+                        isRed: false
+                    }
+                ],
+                checkedList: [],
+                commodityName:'',
+                commodityPrice:'',
+                keyword:''
+
+            },
+            methods: {
+                select(commodity) {
+
+                    commodity.isRed = !commodity.isRed;
+                },
+                del(index) {
+                    this.commodityList.splice(index, 1);
+                },
+                delChecked() {
+                    this.commodityList = this.commodityList.filter((elem, index) => {
+                        if (!this.checkedList.includes(index)) {
+                            return elem;
+                        }
+                    });
+                    this.checkedList = [];
+                },
+                add(){
+                    this.commodityList.push({
+                        commodityName:this.commodityName,
+                        commodityPrice:this.commodityPrice,
+                        isRed: false
+
+                    });
+                    this.commodityPrice='';
+                    this.commodityName='';
+                },
+                search(){
+                    this.commodityList = this.commodityList.filter(function(elem,index){
+                        if(elem.commodityName.includes(this.keyword)){
+                            return elem;
+                        }
+                    }.bind(this));
+                }
+            },
+            computed: {
+                total() {
+                    // 普通遍历算法
+                    // let  sum = 0;
+                    // this.commodityList.forEach((elem,index)=>{
+                    //     if (elem.isRed){
+                    //         sum += parseInt(elem.commodityPrice);
+                    //     }
+                    // });
+                    // return sum;
+
+
+                    //reduce算法
+                    return this.commodityList.reduce((sum, elem) => {
+                        if (elem.isRed) {
+                            sum += parseInt(elem.commodityPrice);
+                        }
+                        return sum;
+                    }, 0);
+
+
+
+                }
+            }
+        });
+
+
+    </script>
+
+
+</body>
+</html>
