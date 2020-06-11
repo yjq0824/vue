@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+    <button @click="change"> set方法改变data里面的值</button>
+    <ul v-for="(list,index) in list">
+        <li >
+            {{list}}
+        </li>
+    </ul>
+
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    new Vue({
+        el: '.msg' ,
+        data: {
+            list: ['a','b','c']
+        },
+        methods: {
+            change: function(){
+// this. list[1] = 'd';不能直接修改，要通过set监听
+                Vue. set(this.list, 1, 'xxxx');
+
+            }
+        }
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .drag{
+            width: 200px;
+            height: 200px;
+            background: #ff0036;
+        }
+    </style>
+</head>
+<body>
+<div class="msg">
+   <div v-yjq="bg">自定义指令</div>
+    <div class="drag" v-drag></div>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    Vue.directive('yjq',(el,binding,vNode)=>{
+        // console.log(el);
+        // console.log(binding);
+        // console.log(vNode);
+        el.style.background=binding.value;
+    });
+    Vue.directive('drag', (el, binding, vNode )=> {
+        el.style.position = ' absolute ';
+        el.onmousedown = function (e) {
+            let xDis = e.clientX - el.offsetLeft;
+            let yDis = e.clientY - el.offsetTop;
+            document.onmousemove = function (e) {
+                el.style.left = e.clientX - xDis + 'px';
+                el.style.top = e.clientY - yDis + 'px';
+            };
+            el.onmouseup = function () {
+                document.onmousemove = null;
+            };
+        };
+    });
+
+    // 钩子函数
+    Vue.directive( 'hook', {
+        bind: function (el, binding, vnode) {//被绑定
+            console.log('1 - bind');
+            // el.style = 'background:' + binding. value;
+        },
+        inserted: function () {//绑定到节点
+            console.log('2 - inserted');
+        },
+        update: function () {//组件更新
+            console.log('3 - update');
+        },
+        componentUpdated: function () {//组件更新完成
+            console.log('4 - componentUpdated');
+        },
+        unbind: function () {//解绑
+            console.log('1 - bind');
+        }
+    });
+
+
+
+    new Vue({
+        el:'.msg',
+        data:{
+            bg:'#ff0036',
+        }
+
+    });
+</script>
+
+</html>

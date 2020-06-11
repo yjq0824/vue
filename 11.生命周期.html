@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+    <button @click="count++" >add</button>
+    <button @click="destroy" >destroy</button>
+    {{count}}
+
+    <ul v-for="(movie,index) in movieList">
+        <li>{{movie}}</li>
+    </ul>
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.js"></script>
+<script>
+
+
+    new Vue({
+        el : '.msg' ,
+        data: {
+            count: 0,
+            movieUrl: 'https://bird.ioliu.cn/ip',
+            movieList:[],
+            timer:null,
+        },
+        methods:{
+          destroy() {
+              this.$destroy();
+          }
+        },
+        beforeCreate() {
+            console. log( 'beforeCreate');
+        },
+        created() {
+            console. log( 'created');
+            axios.get(this.movieUrl).then(res=>{
+
+                this.movieList=res.data.data;
+
+            });
+            this.timer = setInterval(()=>{
+                this.count++;
+                console.log('timer');
+            },1000);
+        },
+        beforeMount() {
+            console. log( 'beforeMount');
+        },
+        mounted(){
+            console. log( 'mounted');
+
+
+        },
+        beforeUpdate(){
+            console. log( 'beforeUpdate');
+        },
+        updated(){
+            console. log( 'updated');
+        },
+        beforeDestroy(){
+            console. log( 'beforeDestroy');
+            clearInterval(this.timer);
+        },
+        destroyed(){
+            console. log( 'destroyed');
+        }
+    });
+
+</script>
+
+</html>

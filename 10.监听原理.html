@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+
+</div>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    let data = {
+            commodityList: [
+                {
+                    commodityName: '裤子',
+                    commodityPrice: '188',
+                    isRed: false
+                },
+                {
+                    commodityName: '鞋子',
+                    commodityPrice: '99',
+                    isRed: false
+                },
+                {
+                    commodityName: '衣服',
+                    commodityPrice: '100',
+                    isRed: false
+                },
+                {
+                    commodityName: '帽子',
+                    commodityPrice: '150',
+                    isRed: false
+                },
+                {
+                    commodityName: '袜子',
+                    commodityPrice: '15',
+                    isRed: false
+                }
+            ],
+
+            checkedList: [],
+            commodityName:'',
+            commodityPrice:'',
+            keyword:'',
+
+        };
+        // console.log(Object.keys(data));//输出在data里面的对象的key
+
+        Object.keys(data).forEach((key)=>{
+            define(data,key,data[key]);
+        });
+        function define(data,key,value){
+            Object.defineProperty(data,key,{
+                get() {
+                    //data对象 里面的值被获取时触发
+                    ...
+                },
+                set(v) {//v为新的值
+                    //data对象 里面的值被设置（set）时触发
+                    //value为旧的值
+                    ...
+                }
+            });
+        }
+</script>
+
+</html>
