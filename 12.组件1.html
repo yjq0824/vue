@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="msg">
+    <yjq></yjq>
+    <yjq></yjq>
+    <comp1></comp1>
+<!--    <todolist></todolist>-->
+
+<!--    <ul>-->
+<!--        <li is="todolist"></li>-->
+<!--    </ul>-->
+    <ul>
+        <todo-list v-for="(item,index) in productList" :product-name="item.commodityName" :product-price="item.commodityPrice" :key="index"></todo-list>
+    </ul>
+
+</div>
+<template id="flag">
+
+    <li>
+        <p>{{productName}}</p>
+        <p>{{productPrice}}</p>
+    </li>
+
+
+</template>
+<template id="temp1">
+
+        <div>div</div>
+</template>
+
+</body>
+
+<script src="vue.js"></script>
+<script>
+    Vue.component('yjq',{   //全局组件
+        template:`
+            <div>
+                <h1>yjq</h1>
+                <h1>0824</h1>
+            </div>
+        `
+    })
+
+    Vue.component('todoList',{   //全局组件
+        template:'#flag',
+        props:{
+            productName:null,
+            productPrice:null,
+        }
+
+
+    });
+
+    let vm = new Vue({
+        el:'.msg',
+        data:{
+            productList: [
+                {
+                    commodityName: '裤子',
+                    commodityPrice: '188',
+
+                },
+                {
+                    commodityName: '鞋子',
+                    commodityPrice: '99',
+
+                },
+                {
+                    commodityName: '衣服',
+                    commodityPrice: '100',
+
+                },
+        ],
+
+        },
+        components:{   //局部组件
+            comp1:{
+                template:'#temp1',
+            }
+        }
+    })
+</script>
+
+</html>
